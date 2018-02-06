@@ -24,7 +24,8 @@ import time
 import numpy as np
 import tensorflow as tf
 
-import re
+import os
+#import re
 import pymongo
 from bson.objectid import ObjectId 
    
@@ -158,12 +159,14 @@ except IOError:
 else:
 	print("Written content in the file successfully")
 # cloth shape update 
-#collection.update({"shape": 0}, {"shape": var1})
-
-#target = re.split("[/,.jpg]", file_name) 
-#docs = collection.find_one({'_id': ObjectId(target[6])})
-#collection.update({'_id': ObjectId(target[6])}, {'shape': var1})
-#print(docs['shape'])
+basename = os.path.basename(file_name)   
+real_filename = os.path.splitext(basename)
+print(real_filename[0])
+docs = collection.find_one({'_id': ObjectId(real_filename[0])})
+print(docs)
+collection.update({'_id': ObjectId(real_filename[0])}, {'$set': {'shape': var1}}, upsert = False)
+docs1 = collection.find_one({'_id': ObjectId(real_filename[0])})
+print(docs1)
 
 
 
