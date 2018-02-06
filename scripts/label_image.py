@@ -160,9 +160,9 @@ else:
 # cloth shape update 
 #collection.update({"shape": 0}, {"shape": var1})
 
-target = re.split("[/,.jpg]", file_name) 
+#target = re.split("[/,.jpg]", file_name) 
 #docs = collection.find_one({'_id': ObjectId(target[6])})
-collection.update({'_id': ObjectId(target[6])}, {'shape': var1})
+#collection.update({'_id': ObjectId(target[6])}, {'shape': var1})
 #print(docs['shape'])
 
 
