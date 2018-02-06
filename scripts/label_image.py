@@ -24,6 +24,14 @@ import time
 import numpy as np
 import tensorflow as tf
 
+import re
+import pymongo
+from bson.objectid import ObjectId 
+   
+connection = pymongo.MongoClient("localhost")
+db = connection.iShopping
+collection = db.uniqlo
+
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -135,3 +143,28 @@ if __name__ == "__main__":
 
   for i in top_k:
     print(labels[i], results[i])
+
+# label 파일에 쓰기	
+_index = top_k[0]
+var1 = labels[_index]
+var2 = results[_index]
+ 
+print("This is maybe ... " + var1)		
+try: 
+	f = open("/opt/tensorflow-for-poets-2/t1.txt", "w")
+	f.write(var1)
+except IOError:
+	print("Error: can't find file or read data")
+else:
+	print("Written content in the file successfully")
+# cloth shape update 
+#collection.update({"shape": 0}, {"shape": var1})
+
+target = re.split("[/,.jpg]", file_name) 
+#docs = collection.find_one({'_id': ObjectId(target[6])})
+collection.update({'_id': ObjectId(target[6])}, {'shape': var1})
+#print(docs['shape'])
+
+
+
+
