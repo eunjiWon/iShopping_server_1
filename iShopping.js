@@ -33,17 +33,29 @@ app.use(function(req, res, next) {
    next();
 });
 router(app);
-// listen (start app with node server.js) ======================================
-
+/*
 var PythonShell = require('python-shell');
 var options1 = {
-	args: ['--graph=/opt/tensorflow-for-poets-2/tf_files/retrained_graph.pb', '--image=/opt/tensorflow-for-poets-2/uniqlo/5a77f35482c8576d00b0808a.jpg'],       
+	args: ['--graph=/opt/tensorflow-for-poets-2/tf_files/retrained_graph.pb', '--image=/opt/tensorflow-for-poets-2/uniqlo/5a79b97666cf7241125346b4.jpg'],       
 	scriptPath: '/opt/tensorflow-for-poets-2/scripts'
 };
 PythonShell.run('label_image.py', options1, function (err, res) {
 	if (err) {console.log("err is  " + err);}
 	console.log("옷 형태 분류 성공	: " + res);
 });
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("iShopping");
+  dbo.collection("uniqlo").findOne({'shape':"coat"}, function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+*/
 app.listen(3000);
 console.log("App listening on port 3000");
 

@@ -28,7 +28,7 @@ exports.login = function(req, res, next){
 }
  
 exports.register = function(req, res, next){
- 
+    console.log("레지스터 됐다."); 
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;

@@ -23,10 +23,10 @@ let upload = multer ({ storage: storage});
  
 module.exports = function(app){
  
-    var apiRoutes = express.Router(),
-        authRoutes = express.Router(),
-        todoRoutes = express.Router();
-        imgRoutes = express.Router(); 
+    var apiRoutes = express.Router();
+    var authRoutes = express.Router();
+    var todoRoutes = express.Router();
+    var imgRoutes = express.Router(); 
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
  
@@ -45,7 +45,7 @@ module.exports = function(app){
     imgRoutes.post('/:user_id/images',upload.single('image'), ImgController.uploadNewImg);
     imgRoutes.delete('/:user_id/images/:img_id', ImgController.deleteOneImgID);
     //matching
-    imgRoutes.get('/:user_id/images/:img_id/matching', ImgController.matching);
+//    imgRoutes.get('/:user_id/images/:img_id/matching', ImgController.matching);
 
     // Set up routes
     app.use('/api', apiRoutes);

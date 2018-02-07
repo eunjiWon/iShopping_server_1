@@ -66,16 +66,17 @@ for a in a_list:
             img_shape = category
             img_size = "XS-XL"
             print(img_name, img_price, img_url, img_size)
+            url = re.sub('[-=.#/?:$}]', '', img_url)
+            req.urlretrieve(img_url,'/opt/tensorflow-for-poets-2/uniqlo/' +  url +  '.jpg')
+            sys.argv = ['--graph=/opt/tensorflow-for-poets-2/tf_files/retrained_graph.pb', '--image=/opt/tensorflow-for-poets-2/uniqlo/' + url + '.jpg']
+            exec(open('/opt/tensorflow-for-poets-2/scripts/label_image.py').read())
+            f = open("/opt/tensorflow-for-poets-2/t1.txt", "r")
+            img_shape = f.readline()
+            print(img_shape)
             collection.insert({"name": img_name, 
                                "price": img_price, 
                                "url": img_url, 
                                "size": img_size,
                                "color": img_color,
                                "shape": img_shape,
-                           })
-            docs = collection.find_one({"url": img_url})
-            #print(docs['_id'])
-            req.urlretrieve(img_url, str(docs['_id']) +  '.jpg')
-            print("insert in DB\n")            
-
-       
+            })

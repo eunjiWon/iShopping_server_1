@@ -8,6 +8,9 @@ let UPLOAD_PATH = '/opt/tensorflow-for-poets-2/uploads/';
 let PORT = 3000;
 var PythonShell = require('python-shell');
 var clothShape, clothColor;
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
 //multer Settings for file upload
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -71,10 +74,10 @@ exports.uploadNewImg = function(req, res, next){
     PythonShell.run('label_image.py', options1, function (err2, resu) {
         if (err2) {console.log("err is  " + err2);}
         console.log("옷 형태 분류 성공  : ");
-        clothShape = fs.readFileSync("/opt/tensorflow-for-poets-2/t.txt");
-        clothColor = fs.readFileSync("/opt/tensorflow-for-poets-2/t1.txt");
-        newImage.color = clothShape;
-        newImage.shape = clothColor;
+        clothShape = fs.readFileSync("/opt/tensorflow-for-poets-2/t1.txt");
+        clothColor = fs.readFileSync("/opt/tensorflow-for-poets-2/t.txt");
+        newImage.shape = clothShape;
+        newImage.color = clothColor;
         newImage.filename = req.file.filename;
         newImage.originalName = req.file.originalname;
         newImage.desc = req.body.desc;
@@ -91,10 +94,25 @@ exports.uploadNewImg = function(req, res, next){
             }
             else{
                 console.log("이미지 포스트(저장) 성공");
-                res.status(201).send({ newImage });
+                //res.send(JSON.stringify(newImage));
+                //res.status(201).json(newImage);
+                //console.log(JSON.stringify(newImage));
             }
         });
-    });
+        var MongoClient = require('mongodb').MongoClient;
+        var url = "mongodb://localhost:27017/";
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("iShopping");
+            var str = clothShape.toString();
+            dbo.collection("uniqlo").find({shape: str}).limit(5).toArray(function(err, result){
+                if (err) throw err;
+                res.send(result);
+                console.log(result);
+                db.close();
+        });
+     });    
+  });
 }
 
 exports.deleteOneImgID = function(req, res, next){
@@ -107,19 +125,6 @@ exports.deleteOneImgID = function(req, res, next){
         del([path.join(UPLOAD_PATH, image.filename)]).then(deleted => {
             res.sendStatus(200);
         })
-    })
-}
-// matching limit 5 
-exports.matching = function(req, res, next){
-    Uniqlo.find({shape: clothShape, color: clothColor}, {limit: 5}, function(err, res){
-        if(err) throw err;
-        else{
-            if(res.length == 0) console.log("no information");
-            else{
-                console.log(res);
-                //res.send(res);
-            } 
-        }
     })
 }
 
