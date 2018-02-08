@@ -45,8 +45,8 @@ module.exports = function(app){
     imgRoutes.post('/:user_id/images',upload.single('image'), ImgController.uploadNewImg);
     imgRoutes.delete('/:user_id/images/:img_id', ImgController.deleteOneImgID);
     //matching
-//    imgRoutes.get('/:user_id/images/:img_id/matching', ImgController.matching);
-
+    imgRoutes.get('/:user_id/match', ImgController.match);
+    imgRoutes.post('/:user_id/match/:select_id', ImgController.selectUpdate);
     // Set up routes
     app.use('/api', apiRoutes);
  

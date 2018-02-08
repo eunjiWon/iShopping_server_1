@@ -7,10 +7,10 @@ var del = require('del');
 let UPLOAD_PATH = '/opt/tensorflow-for-poets-2/uploads/';
 let PORT = 3000;
 var PythonShell = require('python-shell');
-var clothShape, clothColor;
+var clothShape, clothColor, cloth_id;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
+var ObjectId = require('mongodb').ObjectId; 
 //multer Settings for file upload
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -95,24 +95,12 @@ exports.uploadNewImg = function(req, res, next){
             else{
                 console.log("이미지 포스트(저장) 성공");
                 //res.send(JSON.stringify(newImage));
-                //res.status(201).json(newImage);
-                //console.log(JSON.stringify(newImage));
+                res.status(201).send({newImage});
+                cloth_id = newImage._id;
+                //console.log(cloth_id);
             }
         });
-        var MongoClient = require('mongodb').MongoClient;
-        var url = "mongodb://localhost:27017/";
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("iShopping");
-            var str = clothShape.toString();
-            dbo.collection("uniqlo").find({shape: str}).limit(5).toArray(function(err, result){
-                if (err) throw err;
-                res.send(result);
-                console.log(result);
-                db.close();
-        });
-     });    
-  });
+    });
 }
 
 exports.deleteOneImgID = function(req, res, next){
@@ -127,6 +115,49 @@ exports.deleteOneImgID = function(req, res, next){
         })
     })
 }
+
+// match
+exports.match = function(req, res, next){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("iShopping");
+        var str = clothShape.toString();
+        dbo.collection("uniqlo").find({shape: str}).limit(5).toArray(function(err, result){
+            if (err) throw err;
+            res.status(201).send(result);
+            console.log("match list : " + result);
+            db.close();
+        });
+   });    
+}
+// match/select_id
+exports.selectUpdate = function(req, res, next){
+   var select_id = req.params.select_id;
+   console.log("select_id is : " + select_id);
+   imageModule.find({})
+   // update 하면 된다. 
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("iShopping");
+        dbo.collection("uniqlo").find({_id: ObjectId(cloth_id)}).limit(5).toArray(function(err, result){
+            if (err) throw err;
+            res.status(201).send(result);
+            console.log("match list : " + result);
+            db.close();
+        });
+    });
+
+}    
+
+
+
+
+
+
 
 
 
