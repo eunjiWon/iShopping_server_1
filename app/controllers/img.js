@@ -8,6 +8,7 @@ let UPLOAD_PATH = '/opt/tensorflow-for-poets-2/uploads/';
 let PORT = 3000;
 var PythonShell = require('python-shell');
 var clothShape, clothColor, cloth_id;
+var select_id;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId; 
@@ -25,7 +26,7 @@ let upload = multer ({ storage: storage})
 
 
 exports.getAllUploadedImg = function(req, res, next){
-     imageModule.Image.find({userID: req.params.user_id}, '-__v').lean().exec((err, images) => {
+     imageModule.Image.find({userID: req.params.user_id}, '-__v').lean().sort({created:-1}).exec((err, images) => {
     // imageModule.find({userID: req.params.user_id}, '-__v').lean().exec((err, images) => {
         if (err) {
             console.log("이미지 겟 fail1");
@@ -116,43 +117,33 @@ exports.deleteOneImgID = function(req, res, next){
     })
 }
 
-// match
+// match/:store_id
 exports.match = function(req, res, next){
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("iShopping");
-        var str = clothShape.toString();
-        dbo.collection("uniqlo").find({shape: str}).limit(5).toArray(function(err, result){
+        var str_shape = clothShape.toString();
+        var str_upper_color = clothColor.toString().toUpperCase();
+        dbo.collection("clothes").find({store_id: req.params.store_id, shape: str_shape, color: str_upper_color}).limit(6).toArray(function(err, result){
             if (err) throw err;
             res.status(201).send(result);
-            console.log("match list : " + result);
+            console.log("match list : " + JSON.stringify(result));
             db.close();
         });
    });    
 }
 // match/select_id
 exports.selectUpdate = function(req, res, next){
-   var select_id = req.params.select_id;
-   console.log("select_id is : " + select_id);
-   imageModule.find({})
-   // update 하면 된다. 
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("iShopping");
-        dbo.collection("uniqlo").find({_id: ObjectId(cloth_id)}).limit(5).toArray(function(err, result){
-            if (err) throw err;
-            res.status(201).send(result);
-            console.log("match list : " + result);
-            db.close();
-        });
+    select_id = req.params.select_id;
+    console.log("select_id is : " + select_id);
+    
+    imageModule.Image.update({ _id: ObjectId(cloth_id) }, { $set: { select_id: ObjectId(select_id)}}, function(err, res){
+        if(err) throw err;
+        console.log(res);
     });
-
 }    
-
 
 
 

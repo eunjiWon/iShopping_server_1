@@ -1,6 +1,7 @@
 var AuthenticationController = require('./controllers/authentication'), 
     TodoController = require('./controllers/todos'), 
     ImgController = require('./controllers/img'),
+    ClothController = require('./controllers/cloth');
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -27,6 +28,7 @@ module.exports = function(app){
     var authRoutes = express.Router();
     var todoRoutes = express.Router();
     var imgRoutes = express.Router(); 
+    var clothRoutes = express.Router();
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
  
@@ -45,8 +47,14 @@ module.exports = function(app){
     imgRoutes.post('/:user_id/images',upload.single('image'), ImgController.uploadNewImg);
     imgRoutes.delete('/:user_id/images/:img_id', ImgController.deleteOneImgID);
     //matching
-    imgRoutes.get('/:user_id/match', ImgController.match);
+    imgRoutes.get('/:user_id/match/:store_id', ImgController.match);
     imgRoutes.post('/:user_id/match/:select_id', ImgController.selectUpdate);
+   
+    // Cloth Routes
+    apiRoutes.use('/stores', clothRoutes);
+    // find store select cloth
+    clothRoutes.get('/:store_id/clothes/:store_select_id', ClothController.findCloth);
+    clothRoutes.get('', ClothController.findStore);
     // Set up routes
     app.use('/api', apiRoutes);
  

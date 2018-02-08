@@ -11,6 +11,7 @@ imageSchema = mongoose.Schema({
     color: String,
     shape: String,
     store: String,
+    select_id: String,
     created: { type: Date, default: Date.now }
 });
 
