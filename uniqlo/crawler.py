@@ -10,7 +10,7 @@ import re
 
 connection = pymongo.MongoClient("localhost")
 db = connection.iShopping
-collection = db.uniqlo
+collection = db.clothes
 
 #men category crawling
 
@@ -18,9 +18,6 @@ collection = db.uniqlo
 baseurl = "http://www.uniqlo.kr/display/displayShop.lecs?storeNo=22&siteNo=9&displayMallNo=UQ1&displayNo=UQ1A02A01A15#UQ1A02A01A15A02"
 res = req.urlopen(baseurl)
 print(res)
-
-#root dir
-rootDir = os.path.join(os.getcwd(), 'uniqlo')
 
 soup = BeautifulSoup(res, "html.parser")
 
@@ -79,4 +76,5 @@ for a in a_list:
                                "size": img_size,
                                "color": img_color,
                                "shape": img_shape,
+                               "store_id": "uniqlo"
             })

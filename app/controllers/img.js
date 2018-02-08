@@ -1,4 +1,3 @@
-var Uniqlo = require('../models/uniqlo');
 var multer = require('multer');
 var imageModule = require('../models/img_model');
 var path = require('path');
@@ -134,7 +133,7 @@ exports.match = function(req, res, next){
         });
    });    
 }
-// match/select_id
+// match/:select_id
 exports.selectUpdate = function(req, res, next){
     select_id = req.params.select_id;
     console.log("select_id is : " + select_id);
