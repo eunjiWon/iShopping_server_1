@@ -1,5 +1,4 @@
 var AuthenticationController = require('./controllers/authentication'), 
-    TodoController = require('./controllers/todos'), 
     ImgController = require('./controllers/img'),
     ClothController = require('./controllers/cloth');
     express = require('express'),
@@ -26,7 +25,6 @@ module.exports = function(app){
  
     var apiRoutes = express.Router();
     var authRoutes = express.Router();
-    var todoRoutes = express.Router();
     var imgRoutes = express.Router(); 
     var clothRoutes = express.Router();
     // Auth Routes
