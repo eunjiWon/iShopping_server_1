@@ -17,7 +17,7 @@ clothesCol = db.clothes
 storeCol = db.store
 
 uniqlo_info = storeCol.find_one({ name: "uniqlo" })
-
+store_id = uniqlo_info.get("_id")
 
 #men category crawling
 
