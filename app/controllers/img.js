@@ -3,7 +3,7 @@ var imageModule = require('../models/img_model');
 var path = require('path');
 var fs = require('fs');
 var del = require('del');
-let UPLOAD_PATH = '../../uploads/';
+let UPLOAD_PATH = '/home/ubuntu/iShopping_server_1/uploads/';
 let PORT = 3000;
 var PythonShell = require('python-shell');
 var clothShape, clothColor, cloth_id;
@@ -63,10 +63,10 @@ exports.uploadNewImg = function(req, res, next){
 
     /*
     let options2 = {
-        args: ['--graph=../../tf_files_color/retrained_graph.pb', 
-                '--image=../../uploads/'+ req.file.filename,
+        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb', 
+                '--image=/home/ubuntu/iShopping_server_1/uploads/'+ req.file.filename,
                 '--output_file=t1.txt'],
-        scriptPath: '../../scripts/'
+        scriptPath: '/home/ubuntu/iShopping_server_1/scripts/'
     };
     PythonShell.run('label_image.py', options2, function (err1, resu) {
          if (err1) {console.log("err is  " + err1);}
@@ -76,18 +76,18 @@ exports.uploadNewImg = function(req, res, next){
 
     //option1 for category matching
     let options1 = {
-        args: ['--graph=../../tf_files_category/retrained_graph.pb', 
-                '--image=../../uploads/' + req.file.filename,
+        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb', 
+                '--image=/home/ubuntu/iShopping_server_1/uploads/' + req.file.filename,
                 '--option_number=1'],
-        scriptPath: '../../scripts'
+        scriptPath: '/home/ubuntu/iShopping_server_1/scripts'
     };
 
     PythonShell.run('label_image.py', options1, function (err2, resu) {
         if (err2) {console.log("err is  " + err2);}
         console.log("옷 형태 분류 성공  : ");
-        clothShape = fs.readFileSync("../../t.txt");
+        clothShape = fs.readFileSync("/home/ubuntu/iShopping_server_1/t.txt");
         clothColor = "red";
-        //clothColor = fs.readFileSync("../../t1.txt");
+        //clothColor = fs.readFileSync("/home/ubuntu/iShopping_server_1/t1.txt");
         newImage.shape = clothShape;
         newImage.color = clothColor;
         newImage.filename = req.file.filename;

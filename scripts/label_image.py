@@ -123,12 +123,12 @@ if __name__ == "__main__":
     option_number = args.option_number
   
   #define output file according to option num
-  outputFile = '../t.txt'
+  outputFile = '/home/ubuntu/iShopping_server_1/t.txt'
   
   if option_number == 1:
-    outputFile = '../t.txt'
+    outputFile = '/home/ubuntu/iShopping_server_1/t.txt'
   elif option_number == 2:
-    outputFile = '../t1.txt'
+    outputFile = '/home/ubuntu/iShopping_server_1/t1.txt'
 
 
   graph = load_graph(model_file)
