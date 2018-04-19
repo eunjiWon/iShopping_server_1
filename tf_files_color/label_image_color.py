@@ -88,6 +88,7 @@ if __name__ == "__main__":
   parser.add_argument("--input_std", type=int, help="input std")
   parser.add_argument("--input_layer", help="name of input layer")
   parser.add_argument("--output_layer", help="name of output layer")
+  parser.add_argument("--output_file", help="name of output layer")
   args = parser.parse_args()
 
   if args.graph:
@@ -108,6 +109,7 @@ if __name__ == "__main__":
     input_layer = args.input_layer
   if args.output_layer:
     output_layer = args.output_layer
+  
 
   graph = load_graph(model_file)
   t = read_tensor_from_image_file(file_name,
@@ -118,8 +120,8 @@ if __name__ == "__main__":
 
   input_name = "import/" + input_layer
   output_name = "import/" + output_layer
-  input_operation = graph.get_operation_by_name(input_name);
-  output_operation = graph.get_operation_by_name(output_name);
+  input_operation = graph.get_operation_by_name(input_name)
+  output_operation = graph.get_operation_by_name(output_name)
 
   with tf.Session(graph=graph) as sess:
     start = time.time()
