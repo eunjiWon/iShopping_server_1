@@ -9,7 +9,7 @@ var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
 
 
-let UPLOAD_PATH = '/opt/tensorflow-for-poets-2/uploads/';
+let UPLOAD_PATH = '/home/ubuntu/iShopping_server_1/uploads/';
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
