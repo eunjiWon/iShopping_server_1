@@ -135,7 +135,9 @@ exports.match = function(req, res, next){
         var dbo = db.db("iShopping");
         var str_shape = clothShape.toString();
         var str_upper_color = clothColor.toString().toUpperCase();
+        console.log("req.params.store_id " + req.params.store_id);
         dbo.collection("clothes").find({store_id: req.params.store_id, shape: str_shape, color: str_upper_color}).limit(6).toArray(function(err, result){
+            console.log("req.params.store_id " + req.params.store_id);
             if (err) throw err;
             res.status(201).send(result);
             console.log("match list : " + JSON.stringify(result));

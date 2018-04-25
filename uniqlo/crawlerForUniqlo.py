@@ -16,8 +16,8 @@ db = connection.iShopping
 clothesCol = db.clothes
 storeCol = db.store
 
-uniqlo_info = storeCol.find_one({ name: "uniqlo" })
-store_id = uniqlo_info.get("_id")
+#uniqlo_info = storeCol.find_one({ name: "uniqlo" })
+#store_id = uniqlo_info.get("_id")
 
 #men category crawling
 
@@ -74,10 +74,11 @@ for a in a_list:
             img_size = "XS-XL"
             print(img_name, img_price, img_url, img_size)
             url = re.sub('[-=.#/?:$}]', '', img_url)
-            req.urlretrieve(img_url,'/opt/tensorflow-for-poets-2/uniqlo/' +  url +  '.jpg')
-            sys.argv = ['--graph=/opt/tensorflow-for-poets-2/tf_files/retrained_graph.pb', '--image=/opt/tensorflow-for-poets-2/uniqlo/' + url + '.jpg']
-            exec(open('/opt/tensorflow-for-poets-2/scripts/label_image.py').read())
-            f = open("/opt/tensorflow-for-poets-2/t1.txt", "r")
+            req.urlretrieve(img_url,'/home/ubuntu/iShopping_server_1/uniqlo/' +  url +  '.jpg')
+            sys.argv = ['--graph=/home/ubuntu/iShopping_server_1/tf_files/retrained_graph.pb', '--image=/home/ubuntu/iShopping_server_1/uniqlo/' + url + '.jpg',
+            '--option_number=1']
+            exec(open('/home/ubuntu/iShopping_server_1/scripts/label_image.py').read())
+            f = open("/home/ubuntu/iShopping_server_1/t.txt", "r")
             img_shape = f.readline()
             print(img_shape)
 
@@ -87,5 +88,5 @@ for a in a_list:
                                "size": img_size,
                                "color": img_color,
                                "shape": img_shape,
-                               "store_id": stored_id
+                               "store_id": "5a7c10d53e57f0ee8c48f8de"
             })
