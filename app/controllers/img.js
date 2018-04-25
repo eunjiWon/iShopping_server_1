@@ -61,18 +61,16 @@ exports.uploadNewImg = function(req, res, next){
     // tensorflow
     //option2 for color matching
 
-    /*
     let options2 = {
         args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb', 
                 '--image=/home/ubuntu/iShopping_server_1/uploads/'+ req.file.filename,
-                '--output_file=t1.txt'],
+                '--option_number=2'],
         scriptPath: '/home/ubuntu/iShopping_server_1/scripts/'
     };
     PythonShell.run('label_image.py', options2, function (err1, resu) {
          if (err1) {console.log("err is  " + err1);}
          console.log("옷 색깔 분류 성공  : ");
     });
-    */
 
     //option1 for category matching
     let options1 = {
@@ -86,8 +84,8 @@ exports.uploadNewImg = function(req, res, next){
         if (err2) {console.log("err is  " + err2);}
         console.log("옷 형태 분류 성공  : ");
         clothShape = fs.readFileSync("/home/ubuntu/iShopping_server_1/t.txt");
-        clothColor = "red";
-        //clothColor = fs.readFileSync("/home/ubuntu/iShopping_server_1/t1.txt");
+        //clothColor = "red";
+        clothColor = fs.readFileSync("/home/ubuntu/iShopping_server_1/t1.txt");
         newImage.shape = clothShape;
         newImage.color = clothColor;
         newImage.filename = req.file.filename;
