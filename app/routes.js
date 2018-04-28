@@ -1,6 +1,7 @@
 var AuthenticationController = require('./controllers/authentication'), 
     ImgController = require('./controllers/img'),
-    ClothController = require('./controllers/cloth');
+    ClothController = require('./controllers/cloth'),
+    StoreController = require('./controllers/store'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -27,6 +28,7 @@ module.exports = function(app){
     var authRoutes = express.Router();
     var imgRoutes = express.Router(); 
     var clothRoutes = express.Router();
+    var storeRoutes = express.Router();
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
  
@@ -49,10 +51,15 @@ module.exports = function(app){
     imgRoutes.post('/:user_id/match/:select_id', ImgController.selectUpdate);
    
     // Cloth Routes
-    apiRoutes.use('/stores', clothRoutes);
+    apiRoutes.use('/clothes', clothRoutes);
     // find store select cloth
-    clothRoutes.get('/:store_id/clothes/:store_select_id', ClothController.findCloth);
-    clothRoutes.get('', ClothController.findStore);
+    clothRoutes.get('/:select_id', ClothController.findCloth);
+    clothRoutes.get('/:select_id/recommend/:choice', ClothController.recommend); // 이건 뭐지?
+    
+    // Store Routes
+    apiRoutes.use('/stores', storeRoutes);
+    // find store name
+    storeRoutes.get('/:store_id', StoreController.findStore);
     // Set up routes
     app.use('/api', apiRoutes);
  
