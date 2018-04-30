@@ -87,5 +87,5 @@ for a in a_list:
                                "size": img_size,
                                "color": img_color,
                                "shape": img_shape,
-                               "store_id": stored_id
+                               "store_id": store_id
             })
