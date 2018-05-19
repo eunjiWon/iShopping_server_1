@@ -59,7 +59,7 @@ for i in range(len(buttons)):
         
         # store imgs to directory
         url = re.sub('[-=.#/?:$}]', '', img_url)
-        req.urlretrieve(img_url, cwd + '/spao/' +  url +  '.jpg')
+        #req.urlretrieve(img_url, cwd + '/spao/' +  url +  '.jpg')
         '''
         sys.argv = ['--graph=/home/ubuntu/iShopping_server_1/tf_files/retrained_graph.pb', 
                 cwd + '/spao/' +  url +  '.jpg',

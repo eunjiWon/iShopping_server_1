@@ -8,6 +8,7 @@ let PORT = 3000;
 var PythonShell = require('python-shell');
 var clothShape, clothColor, cloth_id;
 var select_id;
+var cloth_name;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId; 
@@ -149,11 +150,19 @@ exports.match = function(req, res, next){
 exports.selectUpdate = function(req, res, next){
     select_id = req.params.select_id;
     console.log("select_id is : " + select_id);
-    
-    imageModule.Image.update({ _id: ObjectId(cloth_id) }, { $set: { select_id: ObjectId(select_id)}}, function(err, res){
-        if(err) throw err;
-        console.log(res);
-    });
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("iShopping");
+        dbo.collection("clothes").find({ _id: ObjectId(req.params.select_id)}).toArray(function(err, result) {
+            if (err) throw err;
+            cloth_name = result[0].name;
+            imageModule.Image.update({ _id: ObjectId(cloth_id) }, { $set: { select_id: ObjectId(select_id), desc: cloth_name}}, function(err, res){
+                if(err) throw err;
+                console.log(res);
+            });
+            db.close(); 
+        }); 
+    });                                                             
 }    
 
 

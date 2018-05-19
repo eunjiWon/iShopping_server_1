@@ -78,9 +78,9 @@ def load_labels(label_file):
   return label
 
 if __name__ == "__main__":
-  file_name = "/opt/tensorflow-for-poets-2/tf_files/flower_photos/daisy/3475870145_685a19116d.jpg"
-  model_file = "/opt/tensorflow-for-poets-2/tf_files/retrained_graph.pb"
-  label_file = "/opt/tensorflow-for-poets-2/tf_files/retrained_labels.txt"
+  file_name = "/home/ubuntu/iShopping_server_1/uploads/image-1524730576623"
+  model_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb"
+  label_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt"
   input_height = 224
   input_width = 224
   input_mean = 128
@@ -177,18 +177,6 @@ except IOError:
 	print("Error: can't find file or read data")
 else:
 	print("Written content in the file successfully")
-
-"""
-# cloth shape update 
-basename = os.path.basename(file_name)   
-real_filename = os.path.splitext(basename)
-print(real_filename[0])
-docs = collection.find_one({'_id': ObjectId(real_filename[0])})
-print(docs)
-collection.update({'_id': ObjectId(real_filename[0])}, {'$set': {'shape': var1}}, upsert = False)
-docs1 = collection.find_one({'_id': ObjectId(real_filename[0])})
-print(docs1)
-"""
 
 
 
