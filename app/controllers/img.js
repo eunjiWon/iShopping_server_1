@@ -3,7 +3,8 @@ var imageModule = require('../models/img_model');
 var path = require('path');
 var fs = require('fs');
 var del = require('del');
-let UPLOAD_PATH = '/home/ubuntu/iShopping_server_1/uploads/';
+var pardir = path.join(__dirname, '../../');
+let UPLOAD_PATH = pardir+'uploads/';
 let PORT = 3000;
 var PythonShell = require('python-shell');
 var clothShape, clothColor, cloth_id;
@@ -22,6 +23,10 @@ var storage = multer.diskStorage({
     }
 })
 
+var lines = fs.readFileSync(pardir+"t.txt",'utf-8')
+    .split('\n')
+    .filter(Boolean);
+console.log(lines[0].split(' ')[0]);
 let upload = multer ({ storage: storage})
 
 
@@ -63,10 +68,10 @@ exports.uploadNewImg = function(req, res, next){
     //option2 for color matching
 
     let options2 = {
-        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb', 
-                '--image=/home/ubuntu/iShopping_server_1/uploads/'+ req.file.filename,
+        args: ['--graph='+pardir+'tf_files_color/retrained_graph.pb', 
+                '--image='+pardir+'uploads/'+ req.file.filename,
                 '--option_number=2'],
-        scriptPath: '/home/ubuntu/iShopping_server_1/scripts/'
+        scriptPath: pardir+'scripts/'
     };
     PythonShell.run('label_image.py', options2, function (err1, resu) {
          if (err1) {console.log("err is  " + err1);}
@@ -75,19 +80,31 @@ exports.uploadNewImg = function(req, res, next){
 
     //option1 for category matching
     let options1 = {
-        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb', 
-                '--image=/home/ubuntu/iShopping_server_1/uploads/' + req.file.filename,
+        args: ['--graph=' + pardir + 'tf_files_category/retrained_graph.pb', 
+                '--image=' + pardir + 'uploads/' + req.file.filename,
                 '--option_number=1'],
-        scriptPath: '/home/ubuntu/iShopping_server_1/scripts'
+        scriptPath: pardir+'scripts'
     };
 
     PythonShell.run('label_image.py', options1, function (err2, resu) {
         if (err2) {console.log("err is  " + err2);}
         console.log("옷 형태 분류 성공  : ");
-        clothShape = fs.readFileSync("/home/ubuntu/iShopping_server_1/t.txt");
+        var lines = fs.readFileSync(pardir+"t.txt",'utf-8')
+            .split('\n')
+            .filter(Boolean);
+        
+        clothShape = fs.readFileSync(pardir+"t.txt");
         //clothColor = "red";
-        clothColor = fs.readFileSync("/home/ubuntu/iShopping_server_1/t1.txt");
-        newImage.shape = clothShape;
+        clothColor = fs.readFileSync(pardir+"t1.txt");
+        
+        newImage.shape = lines[0].split(' ')[0];
+        newImage.shape1 = lines[1].split(' ')[0];
+        newImage.shape2 = lines[2].split(' ')[0]
+
+        newImage.p = lines[0].split(' ')[1];
+        newImage.p1 = lines[1].split(' ')[1];
+        newImage.p2 = lines[2].split(' ')[1];
+
         newImage.color = clothColor;
         newImage.filename = req.file.filename;
         newImage.originalName = req.file.originalname;

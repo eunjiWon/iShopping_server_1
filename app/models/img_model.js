@@ -10,6 +10,11 @@ imageSchema = mongoose.Schema({
     lng:  Number,
     color: String,
     shape: String,
+    shape1: String,
+    shape2: String,
+    p: String,
+    p1: String,
+    p2: String,
     store: String,
     select_id: String,
     created: { type: Date, default: Date.now }

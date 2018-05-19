@@ -124,16 +124,16 @@ if __name__ == "__main__":
     option_number = args.option_number
   
   #define output file according to option num
-  outputFile = '/home/ubuntu/iShopping_server_1/t.txt'
+  outputFile = os.pardir+'/'+'t.txt'
   
   if option_number == 1:
-    outputFile = '/home/ubuntu/iShopping_server_1/t.txt'
-    model_file = '/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb'
-    label_file = '/home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt'
+    outputFile = os.pardir+'/'+'t.txt'
+    model_file = os.pardir+'/'+'tf_files_category/retrained_graph.pb'
+    label_file = os.pardir+'/'+'tf_files_category/retrained_labels.txt'
   elif option_number == 2:
-    outputFile = '/home/ubuntu/iShopping_server_1/t1.txt'
-    model_file = '/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb'
-    label_file = '/home/ubuntu/iShopping_server_1/tf_files_color/retrained_labels.txt'
+    outputFile = os.pardir+'/'+'iShopping_server_1/t1.txt'
+    model_file = os.pardir+'/'+'tf_files_color/retrained_graph.pb'
+    label_file = os.pardir+'/'+'tf_files_color/retrained_labels.txt'
 
 
 
@@ -172,7 +172,12 @@ var2 = results[_index]
 print("This is maybe ... " + var1)		
 try: 
 	f = open(outputFile, "w")
-	f.write(var1)
+	f.write(
+          labels[top_k[0]]+' '+str(results[top_k[0]])+'\n'
+         +labels[top_k[1]]+' '+str(results[top_k[1]])+'\n'
+         +labels[top_k[2]]+' '+str(results[top_k[2]])+'\n'
+          )
+
 except IOError:
 	print("Error: can't find file or read data")
 else:
