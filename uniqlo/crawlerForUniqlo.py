@@ -22,12 +22,17 @@ storeCol = db.store
 #men category crawling
 
 #starting url
-baseurl = "http://www.uniqlo.kr/display/displayShop.lecs?storeNo=22&siteNo=9&displayMallNo=UQ1&displayNo=UQ1A02A01A15#UQ1A02A01A15A02"
+baseurl = "http://store-kr.uniqlo.com/display/displayShop.lecs?storeNo=83&siteNo=50706&displayNo=NQ1A13A07&displayMallNo=NQ1&stonType=P"
 res = req.urlopen(baseurl)
 print(res)
 
 #root dir
-rootDir = os.path.join(os.getcwd(), 'uniqlo')
+rootDir = os.path.join(os.getcwd(), 'uniqlo_img')
+
+# model dir
+pardir = os.pardir
+model_dir = os.path.abspath(os.path.join(os.pardir, 'tf_files_category', 'retrained_graph.pb'))
+
 
 soup = BeautifulSoup(res, "html.parser")
 
@@ -36,7 +41,7 @@ a_list = soup.select("div.gnb_2016_col.col3 > div.col_block > ul a")
 
 #print(a_list)
 for a in a_list:
-    print("ㅇㅇ: " + a.string + a.get('href')+ '\n')
+    
     #찾은 카테고리명으로 디렉토리 생성
     category = a.string
 #    dirname = os.path.join(rootDir, a.string)
@@ -74,20 +79,37 @@ for a in a_list:
             img_size = "XS-XL"
             print(img_name, img_price, img_url, img_size)
             url = re.sub('[-=.#/?:$}]', '', img_url)
-            req.urlretrieve(img_url,'/home/ubuntu/iShopping_server_1/uniqlo/' +  url +  '.jpg')
-            
-            sys.argv = ['--graph=/home/ubuntu/iShopping_server_1/tf_files/retrained_graph.pb', '--image=/home/ubuntu/iShopping_server_1/uniqlo/' + url + '.jpg',
-            '--option_number=1']
-            exec(open('/home/ubuntu/iShopping_server_1/scripts/label_image.py').read())
-            f = open("/home/ubuntu/iShopping_server_1/t.txt", "r")
-            img_shape = f.readline()
-            print(img_shape)
 
+            img_dir = rootDir+'/'+url+'.jpg'
+            req.urlretrieve(img_url,rootDir+ '/' +  url +  '.jpg')
+            
+            sys.argv = ['--graph='+model_dir, '--image='+img_dir,
+            '--option_number=1']
+            exec(open(pardir+'/'+'scripts/label_image.py').read())
+            f = open(pardir+'/'+"t.txt", "r")
+
+            img_shape = []
+            img_percentage = []
+            line = f.readline()
+            while line:
+                temp = line.split()
+                img_shape.append(temp[0])
+                img_percentage.append(temp[1])
+                print(img_shape)
+                line = f.readline()
+            
+            
             clothesCol.insert({"name": img_name, 
                                "price": img_price, 
-                               "url": img_url, 
+                               "url": img_url,
                                "size": img_size,
                                "color": img_color,
-                               "shape": img_shape,
+                               "shape": img_shape[0],
+                               "shape1": img_shape[1],
+                               "shape2": img_shape[2],
+                               "p": img_percentage[0],
+                               "p1": img_percentage[1],
+                               "p2": img_percentage[2],
                                "store_id": '5a7c10d53e57f0ee8c48f8de'
             })
+            
