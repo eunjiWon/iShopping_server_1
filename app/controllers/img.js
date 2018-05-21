@@ -23,10 +23,7 @@ var storage = multer.diskStorage({
     }
 })
 
-var lines = fs.readFileSync(pardir+"t.txt",'utf-8')
-    .split('\n')
-    .filter(Boolean);
-console.log(lines[0].split(' ')[0]);
+
 let upload = multer ({ storage: storage})
 
 
