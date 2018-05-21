@@ -23,6 +23,7 @@ var storage = multer.diskStorage({
     }
 })
 console.log(pardir);
+console.log(pardir + 'tf_files_category/retrained_graph.pb');
 
 let upload = multer ({ storage: storage})
 
