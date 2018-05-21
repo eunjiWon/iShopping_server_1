@@ -79,8 +79,8 @@ def load_labels(label_file):
 
 if __name__ == "__main__":
   file_name = "/home/ubuntu/iShopping_server_1/uploads/image-1524730576623"
-  model_file = "home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb"
-  label_file = "home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt"
+  model_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb"
+  label_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt"
   input_height = 224
   input_width = 224
   input_mean = 128
