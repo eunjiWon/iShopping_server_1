@@ -66,8 +66,8 @@ exports.uploadNewImg = function(req, res, next){
     //option2 for color matching
 
     let options2 = {
-        args: ['--graph='+pardir+'tf_files_color/retrained_graph.pb', 
-                '--image='+pardir+'uploads/'+ req.file.filename,
+        args: ['--graph='+str(pardir)+'tf_files_color/retrained_graph.pb', 
+                '--image='+str(pardir)+'uploads/'+ req.file.filename,
                 '--option_number=2'],
         scriptPath: pardir+'scripts/'
     };
@@ -78,8 +78,8 @@ exports.uploadNewImg = function(req, res, next){
 
     //option1 for category matching
     let options1 = {
-        args: ['--graph=' + pardir + 'tf_files_category/retrained_graph.pb', 
-                '--image=' + pardir + 'uploads/' + req.file.filename,
+        args: ['--graph=' + str(pardir) + 'tf_files_category/retrained_graph.pb', 
+                '--image=' + str(pardir) + 'uploads/' + req.file.filename,
                 '--option_number=1'],
         scriptPath: pardir+'scripts'
     };
