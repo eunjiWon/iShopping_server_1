@@ -98,7 +98,7 @@ exports.uploadNewImg = function(req, res, next){
         
         
         //clothColor = "red";
-        clothColor = fs.readFileSync(pardir+"t1.txt")
+        clothColor = fs.readFileSync(pardir+"t1.txt", 'utf-8')
             .split('\n')
             .filter(Boolean);
         
