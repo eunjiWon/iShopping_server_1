@@ -79,8 +79,8 @@ def load_labels(label_file):
 
 if __name__ == "__main__":
   file_name = "/home/ubuntu/iShopping_server_1/uploads/image-1524730576623"
-  model_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb"
-  label_file = "/home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt"
+  model_file = "home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb"
+  label_file = "home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt"
   input_height = 224
   input_width = 224
   input_mean = 128
@@ -104,8 +104,10 @@ if __name__ == "__main__":
 
   if args.graph:
     model_file = args.graph
+    print(model_file)
   if args.image:
     file_name = args.image
+    print(file_name)
   if args.labels:
     label_file = args.labels
   if args.input_height:
@@ -128,6 +130,7 @@ if __name__ == "__main__":
   else:
     outputFile = os.path.join(os.pardir,'/','t.txt')  
   
+  print(model_file)
   #define output file according to option num
   
   
