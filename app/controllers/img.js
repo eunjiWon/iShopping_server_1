@@ -66,10 +66,10 @@ exports.uploadNewImg = function(req, res, next){
     //option2 for color matching
 
     let options2 = {
-        args: ['--graph='+pardir.toString+'tf_files_color/retrained_graph.pb', 
-                '--image='+pardir.toString+'uploads/'+ req.file.filename,
+        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb', 
+                '--image=/home/ubuntu/iShopping_server_1/uploads/'+ req.file.filename,
                 '--option_number=2'],
-        scriptPath: pardir+'scripts/'
+        scriptPath:'/home/ubuntu/iShopping_server_1/scripts/'
     };
     PythonShell.run('label_image.py', options2, function (err1, resu) {
          if (err1) {console.log("err is  " + err1);}
@@ -78,10 +78,10 @@ exports.uploadNewImg = function(req, res, next){
 
     //option1 for category matching
     let options1 = {
-        args: ['--graph=' + pardir.toString + 'tf_files_category/retrained_graph.pb', 
-                '--image=' + pardir.toString + 'uploads/' + req.file.filename,
+        args: ['--graph=/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb', 
+                '--image=/home/ubuntu/iShopping_server_1/uploads/' + req.file.filename,
                 '--option_number=1'],
-        scriptPath: pardir+'scripts'
+        scriptPath: 'home/ubuntu/iShopping_server_1/scripts'
     };
 
     PythonShell.run('label_image.py', options1, function (err2, resu) {
