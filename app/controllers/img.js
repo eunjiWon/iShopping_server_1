@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
         cb(null,  file.fieldname + '-' + Date.now());
     }
 })
-
+console.log(pardir);
 
 let upload = multer ({ storage: storage})
 
