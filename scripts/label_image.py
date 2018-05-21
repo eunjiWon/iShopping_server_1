@@ -99,6 +99,7 @@ if __name__ == "__main__":
   parser.add_argument("--input_layer", help="name of input layer")
   parser.add_argument("--output_layer", help="name of output layer")
   parser.add_argument("--option_number", type=int, help="catetory:1, color:2")
+  parser.add_argument("--output_file", help="output file")
   args = parser.parse_args()
 
   if args.graph:
