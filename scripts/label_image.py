@@ -122,18 +122,22 @@ if __name__ == "__main__":
   #add option number, category:1, color:2 
   if args.option_number:
     option_number = args.option_number
+  if args.output_file:
+    outputFile = args.output_file
+  else:
+    outputFile = os.path.join(os.pardir,'/','t.txt')  
   
   #define output file according to option num
-  outputFile = os.pardir+'/'+'t.txt'
   
-  if option_number == 1:
-    outputFile = os.pardir+'/'+'t.txt'
-    model_file = os.pardir+'/'+'tf_files_category/retrained_graph.pb'
-    label_file = os.pardir+'/'+'tf_files_category/retrained_labels.txt'
-  elif option_number == 2:
-    outputFile = os.pardir+'/'+'iShopping_server_1/t1.txt'
-    model_file = os.pardir+'/'+'tf_files_color/retrained_graph.pb'
-    label_file = os.pardir+'/'+'tf_files_color/retrained_labels.txt'
+  
+ # if option_number == 1:
+ #   outputFile = os.path.join(os.pardir,'/','t.txt')
+    #model_file = os.pardir+'/'+'tf_files_category/retrained_graph.pb'
+    #label_file = os.pardir+'/'+'tf_files_category/retrained_labels.txt'
+ # elif option_number == 2:
+  #  outputFile = os.pardir+'/'+'iShopping_server_1/t1.txt'
+    #model_file = os.pardir+'/'+'tf_files_color/retrained_graph.pb'
+    #label_file = os.pardir+'/'+'tf_files_color/retrained_labels.txt'
 
 
 
