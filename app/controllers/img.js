@@ -91,23 +91,25 @@ exports.uploadNewImg = function(req, res, next){
     PythonShell.run('label_image.py', options1, function (err2, resu) {
         if (err2) {console.log("err is  " + err2);}
         console.log("옷 형태 분류 성공  : ");
-        var lines = fs.readFileSync(pardir+"t.txt",'utf-8')
+        clothShape = fs.readFileSync(pardir+"t.txt",'utf-8')
             .split('\n')
             .filter(Boolean);
-        console.log(lines);
+        console.log(clothShape);
         
         
         //clothColor = "red";
-        clothColor = fs.readFileSync(pardir+"t1.txt");
+        clothColor = fs.readFileSync(pardir+"t1.txt")
+            .split('\n')
+            .filter(Boolean);
         
-        newImage.shape = lines[0].split(' ')[0];
+        newImage.shape = clothShape[0].split(' ')[0];
         clothShape = newImage.shape;
-        newImage.shape1 = lines[1].split(' ')[0];
-        newImage.shape2 = lines[2].split(' ')[0]
+        newImage.shape1 = clothShape[1].split(' ')[0];
+        newImage.shape2 = clothShape[2].split(' ')[0]
 
-        newImage.p = lines[0].split(' ')[1];
-        newImage.p1 = lines[1].split(' ')[1];
-        newImage.p2 = lines[2].split(' ')[1];
+        newImage.p = clothShape[0].split(' ')[1];
+        newImage.p1 = clothShape[1].split(' ')[1];
+        newImage.p2 = clothShape[2].split(' ')[1];
 
         newImage.color = clothColor;
         newImage.filename = req.file.filename;
@@ -157,7 +159,7 @@ exports.match = function(req, res, next){
         var dbo = db.db("iShopping");
         var str_shape = clothShape.toString();
         console.log("여기는 매챙",str_shape, clothShape);
-        var str_upper_color = clothColor.toString().toUpperCase();
+        var str_upper_color = clothColor[0].split(' ')[0].toString().toUpperCase();
         console.log("durlsmsrkff: ", str_upper_color);
         console.log("req.params.store_id " + req.params.store_id);
         dbo.collection("clothes").find({store_id: req.params.store_id, shape: str_shape, color: str_upper_color}).limit(6).toArray(function(err, result){
