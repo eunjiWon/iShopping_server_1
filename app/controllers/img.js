@@ -91,11 +91,12 @@ exports.uploadNewImg = function(req, res, next){
             .filter(Boolean);
         console.log(lines);
         
-        //clothShape = fs.readFileSync(pardir+"t.txt");
+        
         //clothColor = "red";
         clothColor = fs.readFileSync(pardir+"t1.txt");
         
         newImage.shape = lines[0].split(' ')[0];
+        clothShape = newImage.shape;
         newImage.shape1 = lines[1].split(' ')[0];
         newImage.shape2 = lines[2].split(' ')[0]
 
