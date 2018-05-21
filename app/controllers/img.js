@@ -111,7 +111,7 @@ exports.uploadNewImg = function(req, res, next){
         newImage.lng = req.body.lng;
         newImage.store = req.body.store;
         console.log("lat : " + req.body.lat);
-        console.log("shape : " + clothShape + "  color : " + clothColor);
+        console.log("shape : " + newImage.shape + "  color : " + clothColor);
         newImage.userID = req.params.user_id;
         newImage.save(err3 => {
             if (err3) { 
