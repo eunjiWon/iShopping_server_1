@@ -156,6 +156,7 @@ exports.match = function(req, res, next){
         if (err) throw err;
         var dbo = db.db("iShopping");
         var str_shape = clothShape.toString();
+        console.log("여기는 매챙",clothColor);
         var str_upper_color = clothColor.toString().toUpperCase();
         console.log("req.params.store_id " + req.params.store_id);
         dbo.collection("clothes").find({store_id: req.params.store_id, shape: str_shape, color: str_upper_color}).limit(6).toArray(function(err, result){
@@ -167,6 +168,7 @@ exports.match = function(req, res, next){
         });
    });    
 }
+
 // match/:select_id
 exports.selectUpdate = function(req, res, next){
     select_id = req.params.select_id;
