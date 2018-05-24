@@ -89,13 +89,16 @@ for a in a_list:
             
             sys.argv = ['--graph='+model_dir, '--image='+img_dir,
             '--option_number=1']
+
             exec(open(pardir+'/'+'scripts/label_image.py').read())
             f = open(pardir+'/'+"t.txt", "r")
 
-            
+            print(str(f))
             img_shape.clear()
             img_percentage.clear()
             line = f.readline()
+            img_shape = []
+
             while line:
                 temp = line.split()
                 img_shape.append(temp[0])
