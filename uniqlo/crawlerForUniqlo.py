@@ -78,7 +78,7 @@ for a in a_list:
             img_url = ic.select_one("li > a").get('data-image-path')
             img_color = ic.select_one("li > a > img").get('alt').split(' ')
             img_color = img_color[len(img_color)-1]
-            img_shape = category
+            
             img_size = "XS-XL"
             print(img_name, img_price, img_url, img_size)
             url = re.sub('[-=.#/?:$}]', '', img_url)
