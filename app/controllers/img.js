@@ -157,19 +157,63 @@ exports.match = function(req, res, next){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("iShopping");
-        var str_shape = clothShape.toString();
+        var str_shape = clothShape[0].split(' ')[0].toString();
+        var str_shape1 = clothShape[1].split(' ')[0].toString();
+        var str_shape2 = clothShape[2].split(' ')[0].toString();
         console.log("여기는 매챙",str_shape, clothShape);
         var str_upper_color = clothColor[0].split(' ')[0].toString().toUpperCase();
         console.log("durlsmsrkff: ", str_upper_color);
         console.log("req.params.store_id " + req.params.store_id);
-        dbo.collection("clothes").find({store_id: req.params.store_id, shape: str_shape, color: str_upper_color}).limit(6).toArray(function(err, result){
-            console.log("req.params.store_id " + req.params.store_id);
-            if (err) throw err;
-            res.status(201).send(result);
-            console.log("match list : " + JSON.stringify(result));
-            db.close();
-        });
-   });    
+        dbo.collection("clothes")
+            .find({
+                    store_id: req.params.store_id, 
+                    shape: str_shape,
+                    shape1: str_shape1,
+                    shape2: str_shape2, 
+                    color: str_upper_color
+            })
+            .limit(6)
+            .toArray(function(err, result){
+                console.log("req.params.store_id " + req.params.store_id);
+                if (err) throw err;
+                if (result.length){
+                    res.status(201).send(result);
+                    console.log("match list : " + JSON.stringify(result));
+                    db.close()
+                } else {
+                    dbo.collection("clothes")
+                        .find({
+                                store_id: req.params.store_id, 
+                                shape: str_shape,
+                                shape1: str_shape1,
+                                color: str_upper_color
+                        })
+                        .limit(6)
+                        .toArray(function(err1,result1){
+                            if (err1) throw err1;
+                            if (result1.length){
+                                res.status(201).send(result1);
+                                console.log("match1 list : " + JSON.stringify(result1));
+                                db.close()
+                            } else{
+                                dbo.collection("clothes")
+                                    .find({
+                                        store_id: req.params.store_id, 
+                                        shape: str_shape,
+                                        color: str_upper_color
+                                    })
+                                    .limit(6)
+                                    .toArray(function(err2,result2){
+                                        res.status(201).send(result2);
+                                        console.log("match2 list : " + JSON.stringify(result2));
+                                        db.close()
+                                    })
+                            }
+                        })
+
+                }
+            });
+    });    
 }
 
 // match/:select_id
