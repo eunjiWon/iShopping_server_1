@@ -81,6 +81,7 @@ for a in a_list:
             url = re.sub('[-=.#/?:$}]', '', img_url)
 
             img_dir = rootDir+'/'+url+'.jpg'
+            print(img_dir)
             req.urlretrieve(img_url,rootDir+ '/' +  url +  '.jpg')
             
             sys.argv = ['--graph='+model_dir, '--image='+img_dir,
