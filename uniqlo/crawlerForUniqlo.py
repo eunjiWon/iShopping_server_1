@@ -16,6 +16,9 @@ db = connection.iShopping
 clothesCol = db.clothes
 storeCol = db.store
 
+img_shape = []
+img_percentage = []
+
 #uniqlo_info = storeCol.find_one({ name: "uniqlo" })
 #store_id = uniqlo_info.get("_id")
 
@@ -89,8 +92,9 @@ for a in a_list:
             exec(open(pardir+'/'+'scripts/label_image.py').read())
             f = open(pardir+'/'+"t.txt", "r")
 
-            img_shape = []
-            img_percentage = []
+            
+            img_shape.clear()
+            img_percentage.clear()
             line = f.readline()
             while line:
                 temp = line.split()
