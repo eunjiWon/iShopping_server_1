@@ -111,7 +111,7 @@ exports.uploadNewImg = function(req, res, next){
         newImage.p1 = clothShape[1].split(' ')[1];
         newImage.p2 = clothShape[2].split(' ')[1];
 
-        newImage.color = clothColor;
+        newImage.color = clothColor[0].split(' ')[0];
         console.log(newImage.color);
         newImage.filename = req.file.filename;
         newImage.originalName = req.file.originalname;
