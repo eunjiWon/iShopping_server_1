@@ -103,7 +103,6 @@ exports.uploadNewImg = function(req, res, next){
             .filter(Boolean);
         
         newImage.shape = clothShape[0].split(' ')[0];
-        clothShape = newImage.shape;
         newImage.shape1 = clothShape[1].split(' ')[0];
         newImage.shape2 = clothShape[2].split(' ')[0]
 
@@ -207,9 +206,9 @@ exports.match = function(req, res, next){
                                         res.status(201).send(result2);
                                         console.log("match2 list : " + JSON.stringify(result2));
                                         db.close()
-                                    })
+                                    });
                             }
-                        })
+                        });
 
                 }
             });
