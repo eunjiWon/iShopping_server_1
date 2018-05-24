@@ -128,7 +128,7 @@ if __name__ == "__main__":
   if args.output_file:
     outputFile = args.output_file
   else:
-    outputFile = os.path.join(os.pardir,'/','t.txt')  
+    outputFile = "/home/ubuntu/iShopping_server_1/t.txt"
   
   print(model_file)
   #define output file according to option num
