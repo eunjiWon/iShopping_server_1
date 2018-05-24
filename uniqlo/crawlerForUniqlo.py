@@ -97,7 +97,7 @@ for a in a_list:
             img_shape.clear()
             img_percentage.clear()
             line = f.readline()
-            f.close()
+            
 
             while line:
                 temp = line.split()
@@ -105,7 +105,7 @@ for a in a_list:
                 img_percentage.append(temp[1])
                 print(img_shape)
                 line = f.readline()
-            
+            f.close()
             
             clothesCol.insert({"name": img_name, 
                                "price": img_price, 
