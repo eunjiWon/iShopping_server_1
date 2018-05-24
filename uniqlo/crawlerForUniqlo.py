@@ -93,11 +93,11 @@ for a in a_list:
             exec(open(pardir+'/'+'scripts/label_image.py').read())
             f = open(pardir+'/'+"t.txt", "r")
 
-            print(str(f))
+            
             img_shape.clear()
             img_percentage.clear()
             line = f.readline()
-            img_shape = []
+            f.close()
 
             while line:
                 temp = line.split()
