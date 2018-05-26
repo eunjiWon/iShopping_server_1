@@ -171,7 +171,7 @@ exports.match = function(req, res, next){
                     shape: str_shape,
                     shape1: str_shape1,
                     shape2: str_shape2, 
-                    //color: str_upper_color
+                    color: str_upper_color
             })
             .limit(6)
             .toArray(function(err, result){
@@ -187,7 +187,7 @@ exports.match = function(req, res, next){
                                 store_id: req.params.store_id, 
                                 shape: str_shape,
                                 shape1: str_shape1,
-                                //color: str_upper_color
+                                color: str_upper_color
                         })
                         .limit(6)
                         .toArray(function(err1,result1){
@@ -201,7 +201,7 @@ exports.match = function(req, res, next){
                                     .find({
                                         store_id: req.params.store_id, 
                                         shape: str_shape,
-                                        //color: str_upper_color
+                                        color: str_upper_color
                                     })
                                     .limit(6)
                                     .toArray(function(err2,result2){
