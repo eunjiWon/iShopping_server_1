@@ -118,6 +118,6 @@ for a in a_list:
                                "p": img_percentage[0],
                                "p1": img_percentage[1],
                                "p2": img_percentage[2],
-                               "store_id": '5a7c10d53e57f0ee8c48f8de'
+                               "store_id": '5ae675567d0b98e5674ac60f'
             })
             
