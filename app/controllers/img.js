@@ -130,7 +130,7 @@ exports.uploadNewImg = function(req, res, next){
             else{
                 console.log("이미지 포스트(저장) 성공");
                 //res.send(JSON.stringify(newImage));
-                res.status(201).send(uploaded);
+                res.status(201).send(uploaded._id.toString());
                 cloth_id = uploaded._id;
                 console.log("uploaded id:",cloth_id);
             }
