@@ -122,7 +122,7 @@ exports.uploadNewImg = function(req, res, next){
         console.log("lat : " + req.body.lat);
         console.log("shape : " + newImage.shape + "  color : " + clothColor);
         newImage.userID = req.params.user_id;
-        newImage.save(err3 => {
+        newImage.save( (err3, uploaded) => {
             if (err3) { 
                 console.log("이미지 포스트(저장) fail" + err3);
                 return res.sendStatus(400);
@@ -131,8 +131,8 @@ exports.uploadNewImg = function(req, res, next){
                 console.log("이미지 포스트(저장) 성공");
                 //res.send(JSON.stringify(newImage));
                 res.status(201).send({newImage});
-                cloth_id = newImage._id;
-                //console.log(cloth_id);
+                cloth_id = uploaded._id;
+                console.log("uploaded id:",cloth_id);
             }
         });
     });
