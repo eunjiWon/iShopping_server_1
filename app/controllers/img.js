@@ -140,6 +140,7 @@ exports.uploadNewImg = function(req, res, next){
 
 exports.deleteOneImgID = function(req, res, next){
     let imgId = req.params.img_id;
+    console.log(imgId);
     imageModule.Image.findByIdAndRemove(imgId, (err, image) => {
         if (err && image) {
             res.sendStatus(400);
