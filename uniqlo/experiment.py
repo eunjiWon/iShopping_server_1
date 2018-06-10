@@ -74,7 +74,7 @@ for i in img:
     '--option_number=1']
     
     exec(open(pardir+'/'+'scripts/label_image.py').read())
-    f = open("/home/ubuntu/iShopping_server_1/t.txt", "r")
+    f = open(pardir+'/'+"t.txt", "r", "r")
 
     img_shape.clear()
     img_percentage.clear()
@@ -90,11 +90,11 @@ for i in img:
     #color
     sys.argv = ['--graph='+ color_model_dir, '--image='+img_dir,'--option_number=2']
     exec(open(pardir+'/'+'scripts/label_image.py').read())
-    f2 = open("/home/ubuntu/iShopping_server_1/t.txt", "r")
+    f2 = open(pardir+'/'+"t1.txt", "r")
 
     img_shape.clear()
     img_percentage.clear()
-    line = f.readline()
+    line = f2.readline()
     temp = line.split()
     img_color = temp[0]
 
