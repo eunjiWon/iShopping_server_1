@@ -74,7 +74,7 @@ for i in img:
     '--option_number=1']
     
     exec(open(pardir+'/'+'scripts/label_image.py').read())
-    f = open(pardir+'/'+"t.txt", "r", "r")
+    f = open(pardir+'/'+"t.txt", "r")
 
     img_shape.clear()
     img_percentage.clear()
