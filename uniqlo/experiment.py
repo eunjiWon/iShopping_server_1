@@ -92,6 +92,7 @@ for i in img:
     f2 = open('/home/ubuntu/iShopping_server_1/t1.txt', "r")
 
     img_color = f2.readline()
+    print(img_color)
     
     f2.close()
 
