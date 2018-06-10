@@ -70,8 +70,7 @@ for i in img:
     img_dir = rootDir+'/'+img_name+'.jpg'
 
     #category
-    sys.argv = ['--graph='+ category_model_dir, '--image='+img_dir,
-    '--option_number=1']
+    sys.argv = ['--graph='+ category_model_dir, '--image='+img_dir, '--option_number=1']
     
     exec(open(pardir+'/'+'scripts/label_image.py').read())
     f = open(pardir+'/'+"t.txt", "r")

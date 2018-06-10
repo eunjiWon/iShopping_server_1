@@ -133,7 +133,7 @@ if __name__ == "__main__":
   print(model_file)
   #define output file according to option num
   
-  
+  print("option number:", option_number)
   if option_number == 1:
     outputFile = '/home/ubuntu/iShopping_server_1/t.txt'
     model_file = '/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb'
