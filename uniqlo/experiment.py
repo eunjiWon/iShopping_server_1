@@ -13,7 +13,7 @@ db = connection.iShopping
 
 #옷정보 -> clothes
 #매장정보 -> store
-clothesCol = db.clothes
+clothesCol = db.experiment
 storeCol = db.store
 
 img_shape = []
