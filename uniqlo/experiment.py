@@ -89,21 +89,18 @@ for i in img:
     #color
     sys.argv = ['--graph='+ color_model_dir, '--image='+img_dir,'--option_number=2']
     exec(open(pardir+'/'+'scripts/label_image.py').read())
-    f2 = open('/home/ubuntu/iShopping_server_1/t1.txt', "r")
+    colorF = open(pardir+'/'+"t1.txt", 'r')
+    
+    lines = colorF.readlines()
+    print('lines:',  lines)
 
-    line = f2.readline()
-    temp = line.split()
-    img_color = temp[0]
-    
-    print(img_color)
-    
-    f2.close()
+    colorF.close()
 
     clothesCol.insert({"name": img_name, 
                         "price": img_price, 
                         "url": img_url,
                         "size": img_size,
-                        "color": img_color,
+                        "color": ";",
                         "shape": img_shape[0],
                         "shape1": img_shape[1],
                         "shape2": img_shape[2],
