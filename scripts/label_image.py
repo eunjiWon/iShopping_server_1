@@ -139,7 +139,7 @@ if __name__ == "__main__":
     model_file = '/home/ubuntu/iShopping_server_1/tf_files_category/retrained_graph.pb'
     label_file = '/home/ubuntu/iShopping_server_1/tf_files_category/retrained_labels.txt'
   elif option_number == 2:
-    outputFile = '/home/ubuntu/iShopping_server_1/iShopping_server_1/t1.txt'
+    outputFile = '/home/ubuntu/iShopping_server_1/t1.txt'
     model_file = '/home/ubuntu/iShopping_server_1/tf_files_color/retrained_graph.pb'
     label_file = '/home/ubuntu/iShopping_server_1/tf_files_color/retrained_labels.txt'
 
