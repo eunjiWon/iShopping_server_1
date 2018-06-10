@@ -92,12 +92,8 @@ for i in img:
     exec(open(pardir+'/'+'scripts/label_image.py').read())
     f2 = open(pardir+'/'+"t1.txt", "r")
 
-    img_shape.clear()
-    img_percentage.clear()
-    line = f2.readline()
-    temp = line.split()
-    img_color = temp[0]
-
+    img_color = f2.readline()
+    
     f2.close()
 
     clothesCol.insert({"name": img_name, 
