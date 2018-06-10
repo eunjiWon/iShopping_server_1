@@ -89,7 +89,7 @@ for i in img:
     #color
     sys.argv = ['--graph='+ color_model_dir, '--image='+img_dir,'--option_number=2']
     exec(open(pardir+'/'+'scripts/label_image.py').read())
-    f2 = open(pardir+'/'+"t1.txt", "r")
+    f2 = open('/home/ubuntu/iShopping_server_1/t1.txt', "r")
 
     img_color = f2.readline()
     
