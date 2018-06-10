@@ -166,7 +166,7 @@ exports.match = function(req, res, next){
         var str_upper_color = clothColor[0].split(' ')[0].toString().toUpperCase();
         console.log("durlsmsrkff: ", str_upper_color);
         console.log("req.params.store_id " + req.params.store_id);
-        dbo.collection("clothes")
+        dbo.collection("experiment")
             .find({
                     store_id: req.params.store_id, 
                     shape: str_shape,
@@ -174,7 +174,7 @@ exports.match = function(req, res, next){
                     shape2: str_shape2, 
                     color: str_upper_color
             })
-            .limit(6)
+            .limit(1)
             .toArray(function(err, result){
                 console.log("req.params.store_id " + req.params.store_id);
                 if (err) throw err;
@@ -183,14 +183,14 @@ exports.match = function(req, res, next){
                     console.log("match list : " + JSON.stringify(result));
                     db.close()
                 } else {
-                    dbo.collection("clothes")
+                    dbo.collection("experiment")
                         .find({
                                 store_id: req.params.store_id, 
                                 shape: str_shape,
                                 shape1: str_shape1,
                                 color: str_upper_color
                         })
-                        .limit(6)
+                        .limit(1)
                         .toArray(function(err1,result1){
                             if (err1) throw err1;
                             if (result1.length){
@@ -198,17 +198,32 @@ exports.match = function(req, res, next){
                                 console.log("match1 list : " + JSON.stringify(result1));
                                 db.close()
                             } else{
-                                dbo.collection("clothes")
+                                dbo.collection("experiment")
                                     .find({
                                         store_id: req.params.store_id, 
                                         shape: str_shape,
                                         color: str_upper_color
                                     })
-                                    .limit(6)
+                                    .limit(1)
                                     .toArray(function(err2,result2){
-                                        res.status(201).send(result2);
-                                        console.log("match2 list : " + JSON.stringify(result2));
-                                        db.close()
+                                        if(err2) throw err2;
+                                        if(result2.length){
+                                            res.status(201).send(result2);
+                                            console.log("match2 list : " + JSON.stringify(result2));
+                                            db.close()
+                                        } else {
+                                            dbo.collection("experiment")
+                                               .find({
+                                                    store_id:req.params.store_id,
+                                                    shape: str_shape
+                                               })
+                                               .limit(1)
+                                               .toArray(function(err3,result3){
+                                                    if(err3) throw err3;
+                                                    res.status(201).send(result3);
+                                                    console.log("match3 list: "+ JSON.stringify(result3));
+                                               })
+                                        }
                                     });
                             }
                         });
